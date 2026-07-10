@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environment } from '../../../environments/environment';
 
 /** แนบ Bearer token ทุกคำขอ /api และเด้งกลับหน้า login เมื่อ 401 */
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
@@ -10,7 +11,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   const token = auth.token;
 
-  const authedReq = token && req.url.startsWith('/api')
+  const authedReq = token && (req.url.startsWith('/api') || req.url.startsWith(environment.apiBase + '/api'))
     ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
     : req;
 

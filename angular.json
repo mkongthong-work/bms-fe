@@ -15,18 +15,46 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "styles": ["src/styles.css"],
-            "budgets": [{ "type": "initial", "maximumWarning": "1MB", "maximumError": "2MB" }]
+            "styles": [
+              "src/styles.css"
+            ],
+            "budgets": [
+              {
+                "type": "initial",
+                "maximumWarning": "1MB",
+                "maximumError": "2MB"
+              }
+            ],
+            "assets": [
+              {
+                "glob": "_redirects",
+                "input": "src",
+                "output": "/"
+              }
+            ]
           },
           "configurations": {
-            "production": { "outputHashing": "all" },
-            "development": { "optimization": false, "sourceMap": true }
+            "production": {
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": { "buildTarget": "bms-admin:build:development" }
+          "options": {
+            "buildTarget": "bms-admin:build:development"
+          }
         }
       }
     }

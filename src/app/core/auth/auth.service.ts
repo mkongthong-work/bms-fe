@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 interface LoginResponse { access_token: string; role: string }
 
@@ -19,7 +20,7 @@ export class AuthService {
   get isLoggedIn(): boolean { return this.token !== null; }
 
   login(email: string, password: string) {
-    return this.http.post<LoginResponse>('/api/v1/auth/login', { email, password }).pipe(
+    return this.http.post<LoginResponse>(`${environment.apiBase}/api/v1/auth/login`, { email, password }).pipe(
       tap(res => {
         sessionStorage.setItem(TOKEN_KEY, res.access_token);
         this.role.set(res.role);
