@@ -31,6 +31,9 @@
                 "input": "src",
                 "output": "/"
               }
+            ],
+            "polyfills": [
+              "zone.js"
             ]
           },
           "configurations": {
